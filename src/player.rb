@@ -64,7 +64,7 @@ class Player < GameObject
   
   def throw
     @grabbed_game_objects.each do |game_object|
-      game_object.velocity_x = 10
+      game_object.velocity_x = (self.factor_x > 0) ? 10 : -10
       game_object.velocity_y = -7
       game_object.thrown_by(self)
     end

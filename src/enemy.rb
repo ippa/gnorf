@@ -72,7 +72,7 @@ class Horse < Enemy
 end
 
 class Balloon < Enemy 
-  trait :animation, :delay => 200
+  trait :animation, :delay => 500
   def setup
     super
     every(2000 + rand(1000) ) { change_direction }
@@ -81,12 +81,24 @@ class Balloon < Enemy
   end
   
   def change_direction
-    self.velocity_x = 0.5 - rand(1)
-    self.velocity_y = 0.5 - rand(1)
+    self.velocity_x = (game_state.player.x < self.x) ? -rand*2 : rand*2
+    self.velocity_y = self.y < 50 ? rand : (0.5 - rand)
   end
   
 end
 
 class Bomb < Enemy
   trait :animation
+  
+  def setup
+    super
+    self.acceleration_y = 0.2
+    after(4000) { explode }
+  end
+  
+  def explode
+    Smokepuff.create(:x => x, :y => y, :color => Color::RED.dup, :scale => 3)
+    Smokepuff.create(:x => x, :y => y, :color => Color::YELLOW.dup, :scale => 3)
+    destroy
+  end
 end

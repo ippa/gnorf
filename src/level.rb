@@ -56,7 +56,8 @@ class Level1 < Level
   def setup
     super
     #every(1000) { Smokepuff.create(:x => $window.width/2, :y => $window.height/2) }
-    Balloon.create(:x => $window.width - 200, :y => 200)
+    Balloon.create(:x => $window.width - 150, :y => 200)
+    Balloon.create(:x => 50, :y => 150)
     Knight.create(:x => $window.width - 500, :y => 550)
     Horse.create(:x => $window.width - 100, :y => 550)
     every(1000) { Knight.create(:x => $window.width - 50, :y => 550) }
