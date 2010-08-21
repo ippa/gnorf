@@ -1,0 +1,18 @@
+= Gnorf (is breaking an entrance)
+
+ LD18 48 hour game compo entry by ippa [ http://ippa.se/games ]
+
+== CONTROLS
+  Arrows-keys
+
+== RUN FROM SOURCE
+  $ gem install gosu
+  $ gem install chingu   (you need 0.7.7.3+)
+  $ ruby start_game.rb
+
+== WINDOWS EXECUTABLE
+http://ippa.se/games/gnorf.exe
+
+== HOW
+Made with Ruby, http://libgosu.org & http://ippa.se/chingu
+
