@@ -14,6 +14,7 @@ class Level < GameState
     @file = File.join(ROOT, "#{self.class.to_s.downcase}.yml")
     load_game_objects(:file => @file)
     @game_object_map = GameObjectMap.new(:game_objects => Block.all + Grass.all, :grid => @grid)
+    @energy_font = Font.new($window, Gosu::default_font_name, 20)    
   end
   
   def edit
@@ -28,12 +29,12 @@ class Level < GameState
   def update
     super
     
-    @player.each_collision(Enemy) do |player, enemy|
-      unless enemy.grabbed? || enemy.thrown
-        player.hit_by(enemy)
-        enemy.hit_by(player)
-      end
-    end
+    #@player.each_collision(Enemy) do |player, enemy|
+    #  unless enemy.grabbed? || enemy.thrown
+    #    player.hit_by(enemy)
+    #    enemy.hit_by(player)
+    #  end
+    #end
     
     Enemy.each_collision(Block) do |enemy, block|
       if enemy.thrown
@@ -41,7 +42,8 @@ class Level < GameState
         block.hit_by(enemy)
       end
     end
-        
+    
+    @energy_font.draw("Energy: #{$window.energy}", 10, 10, 10)
     $window.caption = "Gnorf (is breaking an entrence). LD#18 entry by http://ippa.se/gaming - [#{@player.x}/#{@player.y}]"
   end
   
@@ -54,8 +56,8 @@ class Level1 < Level
     Balloon.create(:x => $window.width - 150, :y => 200)
     Balloon.create(:x => 50, :y => 150)
     Knight.create(:x => $window.width - 500, :y => 550)
-    every(5000) { Horse.create(:x => $window.width - 100, :y => 550) }
-    every(2000) { Knight.create(:x => $window.width - 50, :y => 550) }
+    every(10000) { Horse.create(:x => $window.width - 100, :y => 550) }
+    every(5000) { Knight.create(:x => $window.width - 50, :y => 550) }
   end  
 end
 
@@ -109,6 +111,13 @@ class Intro < GameState
     super
   end
 
+end
+
+class GameOverState < GameState
+  def setup
+    self.input = { :space => MenuState }
+    Text.create("GAME OVER!", :x => $window.width/2, :y => 100, :rotation_center => :center)
+  end
 end
 
 class HighScoreState < GameState

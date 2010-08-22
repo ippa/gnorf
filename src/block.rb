@@ -10,7 +10,7 @@ class Block < GameObject
   
   def hit_by(game_object)
     self.x += game_object.velocity_x / 4
-    Sound["explosion2.ogg"].play(0.05)
+    #Sound["explosion2.ogg"].play(0.05)
     
     Smokepuff.create(:x => self.x, :y => self.y)
     
@@ -20,7 +20,7 @@ class Block < GameObject
     if @energy < 0
       3.times { Smokepuff.create(:x => self.x+rand(4), :y => self.y+rand(4)) }
       game_state.game_object_map.clear_game_object(self)
-      Sound["explosion2.ogg"].play(0.1)
+      #Sound["explosion2.ogg"].play(0.1)
       destroy
     end
   end

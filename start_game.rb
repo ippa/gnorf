@@ -4,7 +4,7 @@ require 'rubygems'
 require 'yaml'
 
 begin
-  raise LoadError if defined?(Ocra)
+  raise LoadError# if defined?(Ocra)
   require '../chingu/lib/chingu'
 rescue LoadError
   require 'chingu'
@@ -21,7 +21,7 @@ exit if defined?(Ocra)
 
 
 class Game < Chingu::Window
-  attr_accessor :levels, :score, :lives
+  attr_accessor :levels, :score, :lives, :energy
   
   def initialize
     super(1000,640)
@@ -45,6 +45,7 @@ class Game < Chingu::Window
   def reset_game
     @levels = [Level1, Level2, Level3, Level4, Level5, Level6, Level7, Level8, Level9, Level10]
     @score = 0
+    @energy = 100
     @lives = 3
   end
   

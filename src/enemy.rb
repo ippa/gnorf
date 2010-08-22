@@ -14,10 +14,13 @@ class Enemy < GameObject
     @grabbed_by = nil
     @thrown = false
     @angle_velocity = 0
+    @attack_image = nil
+    @status = :default
   end
   
   def update
-    self.image = animation.next   if animation && !@grabbed_by
+    self.image = animation.next   if animation && !@grabbed_by && @status == :default
+    self.velocity_x = -self.velocity_x  if self.outside_window?
   end
   
   def grabbed?
@@ -38,20 +41,27 @@ class Enemy < GameObject
   def hit_by(object)
   end
   
+  def attack
+    return if grabbed? || thrown
+    
+    @status = :attack
+    after(600) { @status = :default }
+    @image = @attack_image  if @attack_image
+    game_state.player.hit_by(self) if self.collides?(game_state.player)
+  end
+  
   def move(x, y)
-    return if @grabbed_by
+    return if grabbed? || @status == :attack
     
     self.factor_x = -self.factor_x.abs    if x > 0
     self.factor_x = self.factor_x.abs     if x < 0
     
     self.x += x
-    #self.x = self.previous_x  if outside_window?
     
     self.y += y
     if self.y > game_state.floor_y
       self.y = game_state.floor_y
       if self.velocity_x > 1
-        Sound["enemy_land.ogg"].play(0.2) 
         self.velocity_x = self.velocity_x / 2
       end
     end
@@ -62,12 +72,14 @@ end
 
 class Knight < Enemy
   trait :animation
+  
   def setup
     super
+    @attack_image = self.animation.frames.pop
     self.velocity_x = -1
+    every(2000) { attack }
   end
 end
-
 
 class Horse < Enemy 
   trait :animation, :delay => 30
@@ -106,6 +118,6 @@ class Bomb < Enemy
     Smokepuff.create(:x => x, :y => y, :color => Color::RED.dup, :scale => 3)
     Smokepuff.create(:x => x, :y => y, :color => Color::YELLOW.dup, :scale => 3)
     destroy
-    Sound["bomb.wav"].play(0.3)
+    #Sound["bomb.wav"].play(0.3)
   end
 end

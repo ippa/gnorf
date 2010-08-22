@@ -1,7 +1,7 @@
 class Player < GameObject
   traits :collision_detection, :timer, :velocity
   trait :bounding_box, :scale => [0.5,0.9], :debug => false
-
+  
   def setup
     
     self.input = {  [:holding_left, :holding_a] => :holding_left, 
@@ -35,8 +35,8 @@ class Player < GameObject
   def grabbing?;  @status == :grab; end
   
   def hit_by(object)
-    object.destroy
-    die
+    $window.energy -= 10
+    die if $window.energy <= 0
   end
   
   def aim
@@ -45,7 +45,9 @@ class Player < GameObject
   
   def die
     $window.lives -= 1
-    #between(1,200) { self.mode = (self.mode == :default) ? :additive : :default }.then { self.mode = :default }
+    pause
+    between(1,200) { self.mode = (self.mode == :default) ? :additive : :default }.then { self.mode = :default }
+    $window.switch_game_state(GameOverState)
   end
   
   def action
@@ -72,7 +74,7 @@ class Player < GameObject
     @grabbed_game_objects.each do |game_object|
       #game_object.velocity_x = self.velocity_x + ((self.factor_x > 0) ? 10 : -10)
       game_object.velocity_x = (self.factor_x > 0) ? 10 : -10
-      game_object.velocity_y = -10# + self.velocity_y
+      game_object.velocity_y = -10 # + self.velocity_y
       game_object.thrown_by(self)
     end
     @grabbed_game_objects.clear
