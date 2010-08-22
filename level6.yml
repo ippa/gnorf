@@ -1,0 +1,17 @@
+--- 
+- Floor: 
+    :x: 500.0
+    :y: 608.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 2.0
+    :factor_y: 2.0
+    :color: 4294967295
+- Stonewall: 
+    :x: 792.0
+    :y: 560.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295

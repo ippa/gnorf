@@ -1,10 +1,13 @@
 = Gnorf (is breaking an entrance)
 
  LD18 48 hour game compo entry by ippa [ http://ippa.se/games ]
+ Theme: Enemies as weapons
 
 == CONTROLS
-  Arrows-keys
-
+  Arrow-keys / Gamepad to MOVE
+  UP-arrow / Z / Gamepadbutton #1 to JUMP
+  SPACE / X / Gamepadbutton #2 to GRAB AND THROW
+  
 == RUN FROM SOURCE
   $ gem install gosu
   $ gem install chingu   (you need 0.7.7.3+)

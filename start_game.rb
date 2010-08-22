@@ -4,11 +4,13 @@ require 'rubygems'
 require 'yaml'
 
 begin
-  raise LoadError# if defined?(Ocra)
+  #raise LoadError if defined?(Ocra)
   require '../chingu/lib/chingu'
 rescue LoadError
   require 'chingu'
 end
+
+require 'texplay'
 
 ENV['PATH'] = File.join(ROOT,"lib") + ";" + ENV['PATH']
 
@@ -19,9 +21,8 @@ DEBUG = false
 require_all File.join(ROOT, "src")
 exit if defined?(Ocra)
 
-
 class Game < Chingu::Window
-  attr_accessor :levels, :score, :lives, :energy
+  attr_accessor :levels, :score, :lives, :energy, :signature, :last_level
   
   def initialize
     super(1000,640)
@@ -31,15 +32,10 @@ class Game < Chingu::Window
     retrofy
     self.factor = 2
     reset_game
-    
-    gamercv = YAML.load_file(File.join(ROOT, "gamercv.yml"))
-    #@high_score_list = OnlineHighScoreList.new(:game_id => 14, :login => gamercv["login"], :password => gamercv["password"], :limit => 10)
-    #data = {:name => "TEST", :score => 0, :text => "just a test." }
-    #position = @high_score_list.add(data)
-    #puts "got position: #{position}"
-    
-    push_game_state(Level1)
-    #push_game_state(Intro)    
+    @gamercv = YAML.load_file(File.join(ROOT, "gamercv.yml"))
+    @last_level = nil
+    #next_level
+    push_game_state(MenuState)
   end
   
   def reset_game
@@ -53,6 +49,9 @@ class Game < Chingu::Window
     switch_game_state($window.levels.shift)
   end
   
+  def high_score_list
+    OnlineHighScoreList.load(:game_id => 14, :login => @gamercv["login"], :password => @gamercv["password"], :limit => 10)
+  end
 end
 
 Game.new.show

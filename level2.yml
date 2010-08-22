@@ -1,0 +1,265 @@
+--- 
+- Floor: 
+    :x: 500.0
+    :y: 608.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 2.0
+    :factor_y: 2.0
+    :color: 4294967295
+- Stonewall: 
+    :x: 776.0
+    :y: 568.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Stonewall: 
+    :x: 808.0
+    :y: 568.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Stonewall: 
+    :x: 840.0
+    :y: 568.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Gate: 
+    :x: 744.0
+    :y: 552.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Stonewall: 
+    :x: 872.0
+    :y: 568.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Stonewall: 
+    :x: 904.0
+    :y: 568.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Stonewall: 
+    :x: 936.0
+    :y: 568.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Stonewall: 
+    :x: 968.0
+    :y: 568.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Stonewall: 
+    :x: 744.0
+    :y: 504.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Stonewall: 
+    :x: 776.0
+    :y: 536.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- StonewallWindow: 
+    :x: 808.0
+    :y: 536.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- StonewallWindow: 
+    :x: 872.0
+    :y: 536.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Stonewall: 
+    :x: 840.0
+    :y: 536.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Stonewall: 
+    :x: 904.0
+    :y: 536.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- StonewallWindow: 
+    :x: 936.0
+    :y: 536.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Stonewall: 
+    :x: 968.0
+    :y: 536.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Stonewall: 
+    :x: 968.0
+    :y: 504.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- StonewallRoof: 
+    :x: 776.0
+    :y: 512.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Stonewall: 
+    :x: 744.0
+    :y: 472.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Stonewall: 
+    :x: 744.0
+    :y: 440.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- StonewallRoof: 
+    :x: 744.0
+    :y: 416.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- StonewallRoof: 
+    :x: 808.0
+    :y: 512.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- StonewallRoof: 
+    :x: 840.0
+    :y: 512.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- StonewallRoof: 
+    :x: 872.0
+    :y: 512.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- StonewallRoof: 
+    :x: 904.0
+    :y: 512.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- StonewallRoof: 
+    :x: 936.0
+    :y: 512.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- StonewallRoof: 
+    :x: 968.0
+    :y: 480.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Flower: 
+    :x: 643.0
+    :y: 571.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Flower: 
+    :x: 672.0
+    :y: 568.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Flower: 
+    :x: 688.0
+    :y: 570.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Flower: 
+    :x: 112.0
+    :y: 568.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Flower: 
+    :x: 122.0
+    :y: 570.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
