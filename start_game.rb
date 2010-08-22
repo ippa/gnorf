@@ -2,8 +2,6 @@
 
 require 'rubygems'
 require 'yaml'
-#require 'rest_client'
-#require 'crack/xml'
 
 begin
   raise LoadError if defined?(Ocra)

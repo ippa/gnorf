@@ -10,7 +10,7 @@ class Block < GameObject
   
   def hit_by(game_object)
     self.x += game_object.velocity_x / 4
-    Sound["block.ogg"].play(0.1)
+    Sound["explosion2.ogg"].play(0.05)
     
     Smokepuff.create(:x => self.x, :y => self.y)
     

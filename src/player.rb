@@ -1,7 +1,6 @@
-
 class Player < GameObject
   traits :collision_detection, :timer, :velocity
-  trait :bounding_box, :scale => 0.8, :debug => false
+  trait :bounding_box, :scale => [0.5,0.9], :debug => false
 
   def setup
     
@@ -10,12 +9,13 @@ class Player < GameObject
                     [:down, :s] => :down,
                     [:up, :w] => :jump,
                     [:released_down, :released_s] => :stand,
-                    [:space] => :grab,
-                    [:holding_lctrl] => :aim,
-                    [:released_lctrl] => :throw,
+                    :space => :action
+                    #[:space] => :grab,
+                    #[:holding_lctrl] => :aim,
+                    #[:released_lctrl] => :throw,
                   }
     
-    @animation = Animation.new(:file => "player.bmp", :size => [35,50], :delay => 50)
+    @animation = Animation.new(:file => "player2.bmp", :size => [35,50], :delay => 50)
     @animation.frame_names = { :walk => 0..1, :grab => 2..2, :crouch => 3..4}
     @image = @animation.first
     
@@ -35,40 +35,44 @@ class Player < GameObject
   def grabbing?;  @status == :grab; end
   
   def hit_by(object)
-  end
-  
-  def die
-    self.collidable = false
-    @color = Color::RED
-    @died_at = [self.x, self.y]
-    between(1,600) { self.scale += 0.4; self.alpha -= 5; }.then { resurrect }
-    Sound["hurt.ogg"].play(0.3)
-    self.velocity_y = -13
-  end
-  
-  def grab
-    if @status == :crouch
-      @image = @animation[:crouch].last
-      Enemy.each_at(bb.right + 5, bb.bottom - 10) { |enemy| grabbed(enemy) }
-      Enemy.each_at(bb.right + 5, bb.bottom - 10) { |enemy| grabbed(enemy) }
-      after(100, :name => :ungrab) { @image = @animation[:crouch].first }
-    else
-      @image = @animation[:grab].last
-      Enemy.each_at(bb.right + 5, bb.center_y) { |enemy| grabbed(enemy) }
-      after(100, :name => :ungrab) { @image = @animation[:walk].first }
-    end
+    object.destroy
+    die
   end
   
   def aim
     @status = :aiming
   end
   
+  def die
+    $window.lives -= 1
+    #between(1,200) { self.mode = (self.mode == :default) ? :additive : :default }.then { self.mode = :default }
+  end
+  
+  def action
+    @grabbed_game_objects.empty? ? grab : throw
+  end
+  
+  def grab
+    if @status == :crouch
+      @image = @animation[:crouch].last
+      #Enemy.each_at(bb.right + 7, bb.bottom - 10) { |enemy| grabbed(enemy) }
+      Enemy.each_at(bb.right + 15, bb.bottom - 10) { |enemy| grabbed(enemy) }
+      after(100, :name => :ungrab) { @image = @animation[:crouch].first }
+    else
+      @image = @animation[:grab].last
+      #Enemy.each_at(bb.right + 7, bb.center_y) { |enemy| grabbed(enemy) }
+      Enemy.each_at(bb.right + 15, bb.center_y) { |enemy| grabbed(enemy) }
+      after(100, :name => :ungrab) { @image = @animation[:walk].first }
+    end
+  end
+    
   def throw
     #Sound["fly.ogg"].play(0.2)  unless @grabbed_game_objects.empty?
     
     @grabbed_game_objects.each do |game_object|
+      #game_object.velocity_x = self.velocity_x + ((self.factor_x > 0) ? 10 : -10)
       game_object.velocity_x = (self.factor_x > 0) ? 10 : -10
-      game_object.velocity_y = -7
+      game_object.velocity_y = -10# + self.velocity_y
       game_object.thrown_by(self)
     end
     @grabbed_game_objects.clear
@@ -111,7 +115,7 @@ class Player < GameObject
     return if jumping?
     @jumps += 1
     self.velocity_y = -15
-    Sound["jump2.ogg"].play(0.2)
+    #Sound["jump2.ogg"].play(0.2)
   end
   
   def land
@@ -123,18 +127,14 @@ class Player < GameObject
   # Callback from velocity-trait. It always ends with a call to move(x,y).
   # So we hook into it and add some game / collision detection logic
   #
-  def move(x,y)
-    @image = @animation[:walk].next  if @animation  if x != 0
+  def move(x,y)    
+    @image = @animation[:walk].next  if @animation && x != 0 && !holding_any?(:space, :down)
     
     self.factor_x = self.factor_x.abs   if x > 0
     self.factor_x = -self.factor_x.abs  if x < 0
     
     self.x += x
     self.x = previous_x   if self.x < 0 || self.x > $window.width
-    #if game_state.game_object_map.from_game_object(self)
-    #  self.x = previous_x
-    #  self.velocity_x = 0
-    #end
     
     self.y += y
     if self.y > game_state.floor_y
@@ -144,13 +144,11 @@ class Player < GameObject
     
     @grabbed_game_objects.each do |game_object|
       game_object.factor_x = self.factor_x
-      if self.factor_x > 0
-        game_object.x = self.x + 22
-      else
-        game_object.x = self.x - 30
-      end
-      game_object.y = self.y - 22
+        game_object.x = (self.factor_x > 0) ? self.x+22 : self.x-30
+      
+      game_object.y = (@status == :crouch) ? self.y-10 : self.y-22
     end
+    
   end
     
   def update

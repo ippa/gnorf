@@ -29,7 +29,7 @@ class Level < GameState
     super
     
     @player.each_collision(Enemy) do |player, enemy|
-      unless enemy.grabbed?
+      unless enemy.grabbed? || enemy.thrown
         player.hit_by(enemy)
         enemy.hit_by(player)
       end
@@ -54,8 +54,8 @@ class Level1 < Level
     Balloon.create(:x => $window.width - 150, :y => 200)
     Balloon.create(:x => 50, :y => 150)
     Knight.create(:x => $window.width - 500, :y => 550)
-    Horse.create(:x => $window.width - 100, :y => 550)
-    every(1000) { Knight.create(:x => $window.width - 50, :y => 550) }
+    every(5000) { Horse.create(:x => $window.width - 100, :y => 550) }
+    every(2000) { Knight.create(:x => $window.width - 50, :y => 550) }
   end  
 end
 
