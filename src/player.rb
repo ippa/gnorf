@@ -42,19 +42,20 @@ class Player < GameObject
     @color = Color::RED
     @died_at = [self.x, self.y]
     between(1,600) { self.scale += 0.4; self.alpha -= 5; }.then { resurrect }
-    Sound["hurt.wav"].play(0.3)
+    Sound["hurt.ogg"].play(0.3)
     self.velocity_y = -13
   end
   
   def grab
     if @status == :crouch
       @image = @animation[:crouch].last
-      @status = :grab
-      after(100, :name => :back) { @image = @animation[:crouch].first; @status = :default }
+      Enemy.each_at(bb.right + 5, bb.bottom - 10) { |enemy| grabbed(enemy) }
+      Enemy.each_at(bb.right + 5, bb.bottom - 10) { |enemy| grabbed(enemy) }
+      after(100, :name => :ungrab) { @image = @animation[:crouch].first }
     else
-      @status = :grab
       @image = @animation[:grab].last
-      after(100, :name => :back) { @image = @animation[:walk].first; @status = :default }
+      Enemy.each_at(bb.right + 5, bb.center_y) { |enemy| grabbed(enemy) }
+      after(100, :name => :ungrab) { @image = @animation[:walk].first }
     end
   end
   
@@ -63,6 +64,8 @@ class Player < GameObject
   end
   
   def throw
+    #Sound["fly.ogg"].play(0.2)  unless @grabbed_game_objects.empty?
+    
     @grabbed_game_objects.each do |game_object|
       game_object.velocity_x = (self.factor_x > 0) ? 10 : -10
       game_object.velocity_y = -7
@@ -108,10 +111,12 @@ class Player < GameObject
     return if jumping?
     @jumps += 1
     self.velocity_y = -15
+    Sound["jump2.ogg"].play(0.2)
   end
   
   def land
     @jumps = 0
+    #Sound["land.wav"].play(0.3) if self.velocity_y > 10
   end
   
   #
@@ -125,8 +130,9 @@ class Player < GameObject
     self.factor_x = -self.factor_x.abs  if x < 0
     
     self.x += x
+    self.x = previous_x   if self.x < 0 || self.x > $window.width
     #if game_state.game_object_map.from_game_object(self)
-    #  self.x = previous_x   
+    #  self.x = previous_x
     #  self.velocity_x = 0
     #end
     
@@ -137,7 +143,12 @@ class Player < GameObject
     end
     
     @grabbed_game_objects.each do |game_object|
-      game_object.x = self.x + 18
+      game_object.factor_x = self.factor_x
+      if self.factor_x > 0
+        game_object.x = self.x + 22
+      else
+        game_object.x = self.x - 30
+      end
       game_object.y = self.y - 22
     end
   end

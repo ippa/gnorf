@@ -10,6 +10,7 @@ class Block < GameObject
   
   def hit_by(game_object)
     self.x += game_object.velocity_x / 4
+    Sound["block.ogg"].play(0.1)
     
     Smokepuff.create(:x => self.x, :y => self.y)
     
@@ -19,6 +20,7 @@ class Block < GameObject
     if @energy < 0
       3.times { Smokepuff.create(:x => self.x+rand(4), :y => self.y+rand(4)) }
       game_state.game_object_map.clear_game_object(self)
+      Sound["explosion2.ogg"].play(0.1)
       destroy
     end
   end
@@ -56,7 +58,7 @@ class StonewallArch < Block; end
 class Gate < Block; end
 class Tower < Block; end
 
-class Crack < GameObject
+class StonewallCrack < GameObject
   trait :bounding_box
   
   def setup
@@ -65,5 +67,5 @@ class Crack < GameObject
   end
 end  
 
-class StonewallCrack1 < Crack; end
-class StonewallCrack2 < Crack; end
+class StonewallCrack1 < StonewallCrack; end
+class StonewallCrack2 < StonewallCrack; end

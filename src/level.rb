@@ -4,18 +4,15 @@ class Level < GameState
 
   def initialize
     super
-    
     self.input = { :esc => :exit, :e => :edit }
-    
     @floor_y = $window.height + 2 - 32*2
-    @grid = [8, 8]
-    @file = File.join(ROOT, "#{self.class.to_s.downcase}.yml")
-    load_game_objects(:file => @file)
-    
     @player = Player.create(:x => 40, :y => @floor_y)
   end
   
-  def setup
+  def setup    
+    @grid = [8, 8]
+    @file = File.join(ROOT, "#{self.class.to_s.downcase}.yml")
+    load_game_objects(:file => @file)
     @game_object_map = GameObjectMap.new(:game_objects => Block.all + Grass.all, :grid => @grid)
   end
   
@@ -32,9 +29,7 @@ class Level < GameState
     super
     
     @player.each_collision(Enemy) do |player, enemy|
-      if player.grabbing?
-        player.grabbed(enemy)
-      else
+      unless enemy.grabbed?
         player.hit_by(enemy)
         enemy.hit_by(player)
       end
@@ -61,6 +56,60 @@ class Level1 < Level
     Knight.create(:x => $window.width - 500, :y => 550)
     Horse.create(:x => $window.width - 100, :y => 550)
     every(1000) { Knight.create(:x => $window.width - 50, :y => 550) }
+  end  
+end
+
+class Level2 < Level
+end
+class Level3 < Level
+end
+class Level4 < Level
+end
+class Level5 < Level
+end
+class Level6 < Level
+end
+class Level7 < Level
+end
+class Level8 < Level
+end
+class Level9 < Level
+end
+class Level10 < Level
+end
+
+class MenuState < GameState
+  def setup
+    SimpleMenu.create(
+      :menu_items => {"Start Game" => :start_game, "HighScores" => HighScoreState, "Quit" => :exit}, 
+      :size => 20,
+      :factor => 4
+    )
+    
+    $window.reset_game
+  end
+
+  def start_game
+    $window.next_level
+  end
+end
+
+class Intro < GameState
+  trait :timer
+  
+  def setup
+    on_input([:space, :esc]) { push_game_state(MenuState) }
+    GameObject.create(:image => Image["intro.png"], :x => 0, :y => 0, :rotation_center => :top_left)
+    @fader = GameObject.create(:image => Image["intro_fader.png"], :x => 50, :y => 0, :rotation_center => :top_left)
+    between(5000,15000) { @fader.x -= 1 }.then { push_game_state(MenuState) }
   end
   
+  def draw
+    fill(Color::BLACK)
+    super
+  end
+
+end
+
+class HighScoreState < GameState
 end

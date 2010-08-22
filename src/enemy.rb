@@ -48,7 +48,13 @@ class Enemy < GameObject
     #self.x = self.previous_x  if outside_window?
     
     self.y += y
-    self.y = game_state.floor_y  if self.y > game_state.floor_y
+    if self.y > game_state.floor_y
+      self.y = game_state.floor_y
+      if self.velocity_x > 1
+        Sound["enemy_land.ogg"].play(0.2) 
+        self.velocity_x = self.velocity_x / 2
+      end
+    end
     
     self.angle += @angle_velocity
   end  
@@ -100,5 +106,6 @@ class Bomb < Enemy
     Smokepuff.create(:x => x, :y => y, :color => Color::RED.dup, :scale => 3)
     Smokepuff.create(:x => x, :y => y, :color => Color::YELLOW.dup, :scale => 3)
     destroy
+    Sound["bomb.wav"].play(0.3)
   end
 end
