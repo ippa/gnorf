@@ -47,7 +47,8 @@ class Player < GameObject
   def die    
     PuffText.create("You have been slayed by the kings brave men!")
     self.collidable = false
-    after(3000) { $window.switch_game_state(EnterNameState) }
+    game_state.game_objects.pause
+    game_state.after(3000) { $window.switch_game_state(EnterNameState) }
   end
   
   def action
