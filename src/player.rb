@@ -27,7 +27,7 @@ class Player < GameObject
     @grabbed_game_objects = []
     
     self.zorder = 1
-    self.acceleration_y = 0.5
+    self.acceleration_y = 0.6
     self.max_velocity = 25
     self.rotation_center = :bottom_center
   end
@@ -38,11 +38,14 @@ class Player < GameObject
   def hit_by(object)
     $window.energy -= 10
     die if $window.energy <= 0
+    Sound["hit.wav"].play(0.3)
+    between(1,100) { self.mode = (self.mode == :default) ? :additive : :default }.then { self.mode = :default }
+    #5.times { image.set_pixel(object.x10 - rand(5), rand(5), :color => Color::RED) }
   end
     
-  def die
-    #between(1,200) { self.mode = (self.mode == :default) ? :additive : :default }.then { self.mode = :default }
-    Pufftext.create("The foul beast (You :\) have been slayed!")
+  def die    
+    PuffText.create("You have been slayed by the kings brave men!")
+    self.collidable = false
     after(3000) { $window.switch_game_state(EnterNameState) }
   end
   
@@ -78,7 +81,7 @@ class Player < GameObject
   def throw(energy = 10)
     @grabbed_game_objects.each do |game_object|
       game_object.velocity_x = (self.factor_x > 0) ? energy : -energy
-      game_object.velocity_y = -10
+      game_object.velocity_y = -10  unless game_object.acceleration_y == 0
       game_object.thrown_by(self)
     end
     @grabbed_game_objects.clear
@@ -120,7 +123,7 @@ class Player < GameObject
   def jump
     return if jumping?
     @jumps += 1
-    self.velocity_y = -15
+    self.velocity_y = -14
   end
   
   def land

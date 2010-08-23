@@ -289,7 +289,7 @@
     :color: 4294967295
 - King: 
     :x: 936.0
-    :y: 328.0
+    :y: 296.0
     :angle: 0
     :zorder: 2
     :factor_x: 2
@@ -314,6 +314,54 @@
 - Tower: 
     :x: 744.0
     :y: 232.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2.0
+    :factor_y: 2.0
+    :color: 4294967295
+- Bone: 
+    :x: 520.0
+    :y: 608.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 2.0
+    :factor_y: 2.0
+    :color: 4294967295
+- Bone: 
+    :x: 544.0
+    :y: 592.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 2.0
+    :factor_y: 2.0
+    :color: 4294967295
+- Bone: 
+    :x: 96.0
+    :y: 608.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 2.0
+    :factor_y: 2.0
+    :color: 4294967295
+- Flower: 
+    :x: 8.0
+    :y: 568.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 2.0
+    :factor_y: 2.0
+    :color: 4294967295
+- Flower: 
+    :x: 968.0
+    :y: 568.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 2.0
+    :factor_y: 2.0
+    :color: 4294967295
+- StonewallArch: 
+    :x: 936.0
+    :y: 312.0
     :angle: 0
     :zorder: 10
     :factor_x: 2

@@ -1,4 +1,3 @@
-
 class Level < GameState
   trait :timer
   attr_reader :player, :game_object_map, :floor_y, :grid, :floor
@@ -28,7 +27,7 @@ class Level < GameState
   end
   
   def edit
-    push_game_state GameStates::Edit.new(:grid => @grid, :except => [Player], :file => @file, :debug => true)
+    push_game_state GameStates::Edit.new(:grid => @grid, :except => [Player, PuffText, Smokepuff, Weapon], :file => @file, :debug => false)
   end
   
   def draw
@@ -47,6 +46,20 @@ class Level < GameState
     #  end
     #end
     
+    Weapon.each_collision(@player) do |weapon, player|
+      player.hit_by(weapon)
+      weapon.explode
+    end
+    
+    King.each_collision(Enemy.thrown) do |king, enemy|
+      Sound["win.wav"].play(0.2)
+      king.hit_by(enemy)
+      king.destroy
+      enemy.destroy
+      PuffText.create("You killed the KING!", :x => $window.width/2, :y => $window.height/2)      
+      after(3000) { $window.next_level }
+    end
+      
     Block.each_collision(Enemy.thrown) do |block, enemy|
       enemy.destroy
       block.hit_by(enemy)
@@ -67,30 +80,77 @@ class Level < GameState
   def fire_mortar
     StonewallMortar.all.first.attack rescue nil
   end
+  
+  def spawn_knight
+    Knight.create(:x => $window.width - 50, :y => 550)
+  end
+  
+  def spawn_horse
+    Horse.create(:x => $window.width - 100, :y => 550)
+  end
+  
+  def spawn_balloon
+    Balloon.create(:x => $window.width - 150, :y => 500)
+  end
 
 end
 
 class Level1 < Level
   def setup
     super
-    Balloon.create(:x => $window.width - 150, :y => 200)
-    Balloon.create(:x => 50, :y => 150)
-    Knight.create(:x => $window.width - 500, :y => 550)
-    every(10000, :name => :horse) { Horse.create(:x => $window.width - 100, :y => 550) }
-    every(5000, :name => :knight) { Knight.create(:x => $window.width - 50, :y => 550) }
-    every(6500, :name => :gun) { fire_gun }
-    every(10000, :name => :mortar) { fire_mortar }
+    #Balloon.create(:x => $window.width - 150, :y => 200)
+    #Balloon.create(:x => 50, :y => 150)
+    #Knight.create(:x => $window.width - 500, :y => 550)
+    #spawn_balloon
+    spawn_knight
+    every(5000, :name => :knight) { spawn_knight }
+    every(12000, :name => :horse) { spawn_horse }
+    #every(6500, :name => :gun) { fire_gun }
+    #every(10000, :name => :mortar) { fire_mortar }
   end
 end
 
 class Level2 < Level
+  def setup
+    super
+    Balloon.create(:x => $window.width - rand(500), :y => 200)
+    spawn_knight
+    every(7000, :name => :knight) { spawn_knight }
+    every(10000, :name => :horse)  { spawn_horse }  
+  end
 end
 
 class Level3 < Level
+  def setup
+    super
+    spawn_knight
+    Balloon.create(:x => $window.width - rand(500), :y => 200)
+    every(4000, :name => :gun) { fire_gun }  
+    every(5000, :name => :knight) { spawn_knight }
+    every(9000, :name => :horse) { spawn_horse }
+  end
 end
 class Level4 < Level
+  def setup
+    super
+    spawn_horse
+    Balloon.create(:x => $window.width - rand(500), :y => 200)
+    Balloon.create(:x => $window.width - rand(500), :y => 200)
+    every(4000, :name => :gun) { fire_gun }  
+    every(5000, :name => :knight) { spawn_knight }
+    every(8000, :name => :horse) { spawn_horse } 
+  end
 end
 class Level5 < Level
+  def setup
+    super
+    spawn_knight
+    Balloon.create(:x => $window.width - rand(500), :y => 200)
+    Balloon.create(:x => $window.width - rand(500), :y => 200)
+    every(5000, :name => :gun) { fire_gun }  
+    every(6000, :name => :knight) { spawn_knight }
+    every(7000, :name => :horse) { spawn_horse }     
+  end
 end
 
 class Level6 < Level

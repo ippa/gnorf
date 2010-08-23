@@ -5,11 +5,10 @@ class Block < GameObject
   
   def initialize(options = {})
     @image = Image["#{self.filename}.bmp"].dup
+    @energy, @score = 100, 100
 
     super
     
-    @energy = 100
-    @score = 100
     self.zorder = 10
     cache_bounding_box
   end
@@ -19,11 +18,14 @@ class Block < GameObject
     Smokepuff.create(:x => self.x, :y => self.y)
     
     @energy -= game_object.energy
+    Sound["explosion.wav"].play(0.2)
+    
     if @energy < 0
       3.times { Smokepuff.create(:x => self.x+rand(4), :y => self.y+rand(4)) }
       game_state.game_object_map.clear_game_object(self)
       destroy
       $window.score += @score
+      Sound["explosion.wav"].play(0.3)
     end
   end
 
@@ -44,8 +46,8 @@ class Block < GameObject
   
   def draw
     super
-    Image["stonewall_crack1.bmp"].draw_rot(self.bb.left, self.bb.bottom, self.zorder+1,0,0,factor,factor) if @energy < 80
-    Image["stonewall_crack2.bmp"].draw_rot(self.bb.left, self.bb.bottom, self.zorder+1,0,0,factor,factor) if @energy < 40
+    Image["stonewall_crack1.bmp"].draw_rot(self.bb.left, self.bb.bottom, self.zorder+1,0,0,factor,factor) if @energy < @score/1.2
+    Image["stonewall_crack2.bmp"].draw_rot(self.bb.left, self.bb.bottom, self.zorder+1,0,0,factor,factor) if @energy < @score/1.5
   end
   
   def update
@@ -54,7 +56,7 @@ class Block < GameObject
 end
 
 class StonewallGun < Block
-  def setup; @energy = 50; @score = 50; end  
+  def setup; @energy, @score = 50, 50; end  
   
   def attack
     Bullet.create(:x => x, :y => y+8, :velocity_x => -5-rand(5), :velocity_y => -rand(5))
@@ -62,7 +64,7 @@ class StonewallGun < Block
 end
 
 class StonewallMortar < Block
-  def setup; @energy = 50; @score = 50; end  
+  def setup; @energy, @score = 50, 50; end  
   
   def attack
     Bomb.create(:x => x, :y => y+8, :velocity_x => -2-rand(5), :velocity_y => -5-rand(5))
@@ -70,22 +72,22 @@ class StonewallMortar < Block
 end
 
 class Stonewall < Block
-  def setup; @energy = 80; @score = 80; end  
+  def setup; @energy, @score = 80, 80; end  
 end
 class StonewallWindow < Block
-  def setup; @energy = 60; @score = 60; end
+  def setup; @energy, @score = 30, 30; end
 end
 class StonewallArch < Block
-  def setup; @energy = 120; @score = 120; end
+  def setup; @energy, @score = 100, 100; end
 end
 class Tower < Block
-  def setup; @energy = 30; @score = 30; end
+  def setup; @energy, @score = 30, 30; end
 end
 class Gate < Block
-  def setup; @energy = 150; @score = 150; end
+  def setup; @energy, @score = 150,150; end
 end
 class StonewallRoof < Block
-  def setup; @energy = 20; @score = 20; end
+  def setup; @energy, @score = 20, 20; end
 end
 
 

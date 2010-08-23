@@ -34,8 +34,14 @@ class Game < Chingu::Window
     reset_game
     @gamercv = YAML.load_file(File.join(ROOT, "gamercv.yml"))
     @last_level = nil
+    
+    Sound["hit.wav"]
+    Sound["explosion.wav"]
+    Sound["bounce.wav"]
+    Sound["win.wav"]
+    
     #next_level
-    push_game_state(MenuState)
+    push_game_state(Intro)
   end
   
   def reset_game

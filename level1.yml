@@ -1263,22 +1263,6 @@
     :factor_x: 2.0
     :factor_y: 2.0
     :color: 4294967295
-- StonewallArch: 
-    :x: 912.0
-    :y: 472.0
-    :angle: 0
-    :zorder: 10
-    :factor_x: 2.0
-    :factor_y: 2.0
-    :color: 4294967295
-- Stonewall: 
-    :x: 912.0
-    :y: 504.0
-    :angle: 0
-    :zorder: 10
-    :factor_x: 2.0
-    :factor_y: 2.0
-    :color: 4294967295
 - King: 
     :x: 960.0
     :y: 496.0
@@ -1286,4 +1270,12 @@
     :zorder: 2
     :factor_x: 2
     :factor_y: 2
+    :color: 4294967295
+- StonewallArch: 
+    :x: 912.0
+    :y: 504.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2.0
+    :factor_y: 2.0
     :color: 4294967295

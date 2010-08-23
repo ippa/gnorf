@@ -79,8 +79,8 @@ class Enemy < GameObject
       self.velocity_x = self.velocity_x / 2
       self.velocity_y = -self.velocity_y / 2
       @angle_velocity = 0
-      puts "blood on the dancefloor!"
       5.times { game_state.floor.image.set_pixel(self.x/2 + rand(10), rand(5), :color => Color::RED) }
+      Sound["bounce.wav"].play(0.3)
     else
       self.angle = 0
       @thrown = false
@@ -95,7 +95,7 @@ class King < Enemy
   def setup
     super
     @image = self.animation.first
-    @energy = 50
+    @energy = 30
   end
   
   def grabbed_by(game_object)
@@ -110,15 +110,8 @@ class King < Enemy
     self.y = previous_y if  game_state.game_object_map.from_game_object(self)
   end
   
-  def destroy
-    PuffText.create("You killed the KING!", :x => $window.width/2, :y => $window.height/2)
-    super
-  end
-  
   def say(msg = "Kill that foul beast!")
-    
   end
-  
 end
 
 

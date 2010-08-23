@@ -2,6 +2,9 @@
 
  LD18 48 hour game compo entry by ippa [ http://ippa.se/games ]
  Theme: Enemies as weapons
+ 
+ Global High Scores @ http://www.gamercv.com/games/14-gnorf 
+ (The game will use the network to sync/fetch high scores)
 
 == CONTROLS
   Arrow-keys / Gamepad to MOVE

@@ -3,9 +3,10 @@ class MenuState < GameState
     super 
     
     SimpleMenu.create(
-      :menu_items => {"Start Game" => :start_game, "HighScores" => :high_scores, "Quit" => :exit}, 
+      :menu_items => {"Start Game" => :start_game, "Online HighScores" => :high_scores, "Rewatch Intro" => :intro, "Quit" => :exit}, 
       :size => 20,
-      :factor => 4
+      :factor => 3,
+      :padding => 10
     )
     
     $window.reset_game
@@ -16,8 +17,13 @@ class MenuState < GameState
   end
   
   def high_scores
-    push_game_state(HighScoreState)
+    switch_game_state(HighScoreState)
   end
+  
+  def intro
+    switch_game_state(Intro)
+  end
+  
 end
 
 
@@ -25,10 +31,10 @@ class Intro < GameState
   trait :timer
   
   def setup
-    on_input([:space, :esc]) { push_game_state(MenuState) }
+    on_input([:space, :esc, :enter, :backspace, :gamepad_button_1]) { switch_game_state(MenuState) }
     GameObject.create(:image => Image["intro.png"], :x => 0, :y => 0, :rotation_center => :top_left)
     @fader = GameObject.create(:image => Image["intro_fader.png"], :x => 50, :y => 0, :rotation_center => :top_left)
-    between(5000,15000) { @fader.x -= 1 }.then { push_game_state(MenuState) }
+    between(5000,15000) { @fader.x -= 1 }.then { switch_game_state(MenuState) }
   end
   
   def draw
@@ -41,7 +47,8 @@ end
 
 class HighScoreState < GameState 
   def setup
-    self.input = { [:esc, :space] => :pop_game_state }
+    on_input([:esc, :space, :backspace, :gamepad_button_1]) { switch_game_state(MenuState) }
+    Text.create("HIGH SCORES", :x => 200, :y => 10, :size => 40, :align => :center)
     create_text
   end
   
@@ -52,9 +59,10 @@ class HighScoreState < GameState
     # Iterate through all high scores and create the visual represenation of it
     #
     $window.high_score_list.each_with_index do |high_score, index|
-      y = index * 25 + 100
-      Text.create(high_score[:name], :x => 200, :y => y, :size => 20)
-      Text.create(high_score[:score], :x => 400, :y => y, :size => 20)
+      y = index * 30 + 100
+      Text.create(high_score[:name], :x => 200, :y => y, :size => 17)
+      Text.create(high_score[:score], :x => 400, :y => y, :size => 17)
+      Text.create(high_score[:text], :x => 600, :y => y, :size => 17)
     end
   end
 end
@@ -67,7 +75,8 @@ class EnterNameState < GameState
     super
     
     if position = $window.high_score_list.position_by_score($window.score) < 20
-      Text.create("You made position ##{position}! Please enter your name!", :x => $window.width/2, :y => $window.height/2, :size => 80, :align => :center)
+      #Text.create("You made position nr. #{position.to_s}! Please enter your name!", :x => 10, :y => 10, :size => 30, :align => :center)
+      Text.create("You made a high score! Please enter your name!", :x => 10, :y => 10, :size => 30, :align => :center)
     else
       switch_game_state(MenuState)
     end
@@ -128,7 +137,7 @@ class EnterNameState < GameState
   end
   
   def go
-    text = $window.last_level ? "Reached level #{$window.last_level}" : "I got nowhere :\\"
+    text = $window.last_level ? "Reached #{$window.last_level}" : "I got nowhere :\\"
     data = { :name => @string.join, :score => $window.score, :text => text }
     position = $window.high_score_list.add(data)
     switch_game_state(HighScoreState)
