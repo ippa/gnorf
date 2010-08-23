@@ -6,6 +6,8 @@ class Weapon < GameObject
   def setup
     super
     self.acceleration_y = 0.2
+    update
+    cache_bounding_box
   end
 
   def bounce

@@ -233,14 +233,6 @@
     :color: 4294967295
 - Stonewall: 
     :x: 936.0
-    :y: 408.0
-    :angle: 0
-    :zorder: 10
-    :factor_x: 2.0
-    :factor_y: 2.0
-    :color: 4294967295
-- Stonewall: 
-    :x: 936.0
     :y: 376.0
     :angle: 0
     :zorder: 10
@@ -273,14 +265,6 @@
     :color: 4294967295
 - Stonewall: 
     :x: 744.0
-    :y: 376.0
-    :angle: 0
-    :zorder: 10
-    :factor_x: 2.0
-    :factor_y: 2.0
-    :color: 4294967295
-- Stonewall: 
-    :x: 744.0
     :y: 344.0
     :angle: 0
     :zorder: 10
@@ -289,7 +273,7 @@
     :color: 4294967295
 - King: 
     :x: 936.0
-    :y: 296.0
+    :y: 302.0
     :angle: 0
     :zorder: 2
     :factor_x: 2
@@ -362,6 +346,22 @@
 - StonewallArch: 
     :x: 936.0
     :y: 312.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2.0
+    :factor_y: 2.0
+    :color: 4294967295
+- StonewallMortar: 
+    :x: 744.0
+    :y: 376.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- StonewallGun: 
+    :x: 936.0
+    :y: 408.0
     :angle: 0
     :zorder: 10
     :factor_x: 2

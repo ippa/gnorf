@@ -25,6 +25,9 @@ class Enemy < GameObject
     @status = :default
     @score = 0
     @energy = 10
+    
+    update
+    cache_bounding_box
   end
     
   def update
@@ -122,18 +125,42 @@ class Knight < Enemy
     super
     @attack_image = self.animation.frames.pop
     self.velocity_x = -1
-    @energy = 20
-    every(2000) { attack }
+    @energy = 30
+    every(2000 + rand(2000) ) { attack }
   end
 end
 
 class Horse < Enemy 
-  trait :animation, :delay => 30
+  trait :animation, :delay => 120
+  attr_reader :flag
+
+  def Horse.attacking
+    all.select { |o| o.flag == :default }
+  end
+  
   def setup
     super
-    self.velocity_x = -3
-    @energy = 50
+    
+    @energy = 70
+    @flag = :default
+    self.velocity_x = -2
+    
+    switch_mode
+    every(5000 + rand(3000)) { switch_mode }
   end
+    
+  def switch_mode    
+    if @flag == :attack
+      self.velocity_x = -4
+      animation.delay = 30
+      @flag = :default
+    else
+      self.velocity_x = -2
+      animation.delay = 120
+      @flag = :attack
+    end
+  end
+  
 end
 
 class Balloon < Enemy 
@@ -143,7 +170,7 @@ class Balloon < Enemy
     every(2000 + rand(1000) ) { change_direction }
     every(10000) { Bomb.create(:x => self.x, :y => self.y) }
     self.acceleration_y = 0
-    @energy = 75
+    @energy = 130
   end
   
   def change_direction

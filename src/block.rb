@@ -72,13 +72,13 @@ class StonewallMortar < Block
 end
 
 class Stonewall < Block
-  def setup; @energy, @score = 80, 80; end  
+  def setup; @energy, @score = 70, 70; end  
 end
 class StonewallWindow < Block
   def setup; @energy, @score = 30, 30; end
 end
 class StonewallArch < Block
-  def setup; @energy, @score = 100, 100; end
+  def setup; @energy, @score = 50, 50; end
 end
 class Tower < Block
   def setup; @energy, @score = 30, 30; end

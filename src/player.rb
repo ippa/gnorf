@@ -30,6 +30,7 @@ class Player < GameObject
     self.acceleration_y = 0.6
     self.max_velocity = 25
     self.rotation_center = :bottom_center
+    cache_bounding_box
   end
     
   def jumping?;   @jumps > 0; end

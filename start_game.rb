@@ -10,8 +10,9 @@ rescue LoadError
   require 'chingu'
 end
 
-require 'texplay'
 
+require 'mime/types'
+require 'texplay'
 ENV['PATH'] = File.join(ROOT,"lib") + ";" + ENV['PATH']
 
 include Gosu
@@ -19,7 +20,7 @@ include Chingu
 
 DEBUG = false
 require_all File.join(ROOT, "src")
-exit if defined?(Ocra)
+#exit if defined?(Ocra)
 
 class Game < Chingu::Window
   attr_accessor :levels, :score, :lives, :energy, :signature, :last_level
