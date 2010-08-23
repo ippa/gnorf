@@ -76,7 +76,7 @@ class EnterNameState < GameState
     
     if position = $window.high_score_list.position_by_score($window.score) < 20
       #Text.create("You made position nr. #{position.to_s}! Please enter your name!", :x => 10, :y => 10, :size => 30, :align => :center)
-      Text.create("You made a high score! Please enter your name!", :x => 10, :y => 10, :size => 30, :align => :center)
+      Text.create("High Score! Please enter your name.", :x => 10, :y => 10, :size => 25, :align => :center)
     else
       switch_game_state(MenuState)
     end
