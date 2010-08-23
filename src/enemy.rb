@@ -3,7 +3,7 @@ class Enemy < GameObject
   trait :bounding_box, :debug => false, :scale => [1, 0.7]
   
   attr_accessor :energy, :score
-  attr_reader :thrown
+  attr_reader :thrown, :animation
   
   def Enemy.thrown
     all.select { |object| object.thrown }
@@ -27,7 +27,7 @@ class Enemy < GameObject
     @energy = 10
     
     update
-    cache_bounding_box
+    cache_bounding_box  if @image
   end
     
   def update
@@ -93,11 +93,12 @@ class Enemy < GameObject
 end
 
 class King < Enemy
-  trait :animation, :delay => 1500, :bounce => true
+  #trait :animation, :delay => 1500, :bounce => true
   
   def setup
+    @animation = Animation.new(:file => "king_13x16.bmp", :delay => 1500, :bounce => true)
     super
-    @image = self.animation.first
+    #@image = self.animation.first
     @energy = 30
   end
   
@@ -119,10 +120,13 @@ end
 
 
 class Knight < Enemy
-  trait :animation
+  # trait :animation
   
   def setup
+    @animation = Animation.new(:file => "knight_13x16.bmp")
+    
     super
+    
     @attack_image = self.animation.frames.pop
     self.velocity_x = -1
     @energy = 30
@@ -131,7 +135,7 @@ class Knight < Enemy
 end
 
 class Horse < Enemy 
-  trait :animation, :delay => 120
+  #trait :animation, :delay => 120
   attr_reader :flag
 
   def Horse.attacking
@@ -139,8 +143,10 @@ class Horse < Enemy
   end
   
   def setup
-    super
+    @animation = Animation.new(:file => "horse_29x26.bmp", :delay => 120)
     
+    super
+       
     @energy = 70
     @flag = :default
     self.velocity_x = -2
@@ -164,9 +170,12 @@ class Horse < Enemy
 end
 
 class Balloon < Enemy 
-  trait :animation, :delay => 1500
+  #trait :animation, :delay => 1500
   def setup
+    @animation = Animation.new(:file => "balloon_24x32.bmp", :delay => 1500)
+    
     super
+    
     every(2000 + rand(1000) ) { change_direction }
     every(10000) { Bomb.create(:x => self.x, :y => self.y) }
     self.acceleration_y = 0

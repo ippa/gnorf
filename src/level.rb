@@ -6,8 +6,8 @@ class Level < GameState
     super
     self.input = { :esc => :exit }
     
-    on_input(:tab) { $window.next_level } unless defined?(Ocra)
-    on_input(:e) { edit }                 unless defined?(Ocra)
+    on_input(:tab) { $window.next_level } unless ENV["OCRA_EXECUTABLE"]
+    on_input(:e) { edit }                 unless ENV["OCRA_EXECUTABLE"]
     
     @floor_y = $window.height + 2 - 32*2
     @player = Player.create(:x => 40, :y => @floor_y)
@@ -154,6 +154,7 @@ class Level5 < Level
     every(10000, :name => :knight) { spawn_knight }
     every(9000, :name => :horse) { spawn_horse }
     every(30000, :name => :balloon) { spawn_balloon }
+    every(8000, :name => :mortar) { fire_mortar } 
   end
 end
 
