@@ -31,7 +31,7 @@ class Intro < GameState
   trait :timer
   
   def setup
-    on_input([:space, :esc, :enter, :backspace, :gamepad_button_1]) { switch_game_state(MenuState) }
+    on_input([:space, :esc, :enter, :backspace, :gamepad_button_1, :return]) { switch_game_state(MenuState) }
     GameObject.create(:image => Image["intro.png"], :x => 0, :y => 0, :rotation_center => :top_left)
     @fader = GameObject.create(:image => Image["intro_fader.png"], :x => 50, :y => 0, :rotation_center => :top_left)
     between(5000,15000) { @fader.x -= 1 }.then { switch_game_state(MenuState) }
@@ -83,7 +83,7 @@ class EnterNameState < GameState
     
     self.input = {  [:holding_left, :holding_a, :holding_gamepad_left] => :left, 
                     [:holding_right, :holding_d, :holding_gamepad_right] => :right,
-                    [:space, :x, :enter, :gamepad_button_1] => :action
+                    [:space, :x, :enter, :gamepad_button_1, :return] => :action
                  }
     
     @string = []

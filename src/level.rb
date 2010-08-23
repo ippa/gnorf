@@ -68,7 +68,7 @@ class Level < GameState
     @energy_font.draw("Energy: #{$window.energy}", 10, 10, 10)
     @energy_font.draw("Score: #{$window.score}", 300, 10, 10)
     @energy_font.draw("Throw Speed: #{@player.throw_energy.to_i}", 600, 10, 10)
-    $window.caption = "Gnorf (is breaking an entrence). LD#18 entry by http://ippa.se/gaming - [#{self.class.to_s}/#{@player.x}/#{@player.y}] "
+    $window.caption = "Gnorf (is breaking an entrence). LD#18 entry by http://ippa.se/gaming - [#{self.class.to_s}/#{@player.x}/#{@player.y}/#{$window.fps}] "
     
     #game_objects.destroy_if { |o| o.outside_window? }
   end
@@ -90,7 +90,7 @@ class Level < GameState
   end
   
   def spawn_balloon
-    Balloon.create(:x => $window.width - 150, :y => 500)
+    Balloon.create(:x => $window.width - 150, :y => 300)
   end
 
 end
@@ -98,15 +98,9 @@ end
 class Level1 < Level
   def setup
     super
-    #Balloon.create(:x => $window.width - 150, :y => 200)
-    #Balloon.create(:x => 50, :y => 150)
-    #Knight.create(:x => $window.width - 500, :y => 550)
-    #spawn_balloon
     spawn_knight
     every(5000, :name => :knight) { spawn_knight }
     every(12000, :name => :horse) { spawn_horse }
-    #every(6500, :name => :gun) { fire_gun }
-    #every(10000, :name => :mortar) { fire_mortar }
   end
 end
 
@@ -161,7 +155,6 @@ class Level6 < Level
   end
 end
 
-################################################
 class Level7 < Level
 end
 class Level8 < Level
@@ -169,4 +162,14 @@ end
 class Level9 < Level
 end
 class Level10 < Level
+  def setup
+    super
+    spawn_horse
+    spawn_balloon
+    every(20000, :name => :balloon) { Balloon.create(:x => $window.width - rand(500), :y => 200) }
+    every(5000, :name => :gun) { fire_gun }
+    every(6000, :name => :mortar) { fire_mortar } 
+    every(6000, :name => :knight) { spawn_knight }
+    every(7000, :name => :horse) { spawn_horse }     
+  end  
 end

@@ -4,7 +4,7 @@ require 'rubygems'
 require 'yaml'
 
 begin
-  #raise LoadError if defined?(Ocra)
+  raise LoadError if defined?(Ocra)
   require '../chingu/lib/chingu'
 rescue LoadError
   require 'chingu'

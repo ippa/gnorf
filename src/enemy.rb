@@ -10,7 +10,7 @@ class Enemy < GameObject
   end
     
   def setup
-    @image = Image["#{self.filename}.bmp"] rescue nil    
+    @image = Image["#{self.filename}.bmp"] rescue nil
     
     self.rotation_center = :center_bottom
     self.acceleration_y = 0.4
@@ -69,7 +69,7 @@ class Enemy < GameObject
     self.x += x
     
     self.y += y
-    bounce  if self.y > game_state.floor_y    
+    bounce  if self.y > game_state.floor_y
     self.angle += @angle_velocity
   end
   

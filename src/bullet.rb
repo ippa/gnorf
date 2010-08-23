@@ -1,6 +1,7 @@
-class Weapon < Enemy
-  trait :animation
-  attr_reader :energy
+class Weapon < GameObject
+  traits :collision_detection, :velocity
+  trait :bounding_box, :debug => false, :scale => [1, 0.7]
+  attr_reader :energy  
   
   def setup
     super
@@ -14,14 +15,19 @@ class Weapon < Enemy
   end
   
   def move(x, y)
-    return if grabbed?
-    
     self.x += x
-    self.y += y    
+    self.y += y
+    explode  if self.y > game_state.floor_y
   end
+  
+  def update
+    self.image = animation.next if defined?(animation)
+  end
+
 end
 
 class Fireball < Weapon
+  trait :animation
   def setup
     super
     @energy = 20
@@ -36,6 +42,7 @@ end
 class Bullet < Weapon  
   def setup
     super
+    @image = Image["bullet.bmp"]
     @energy = 10
   end
       
@@ -47,6 +54,7 @@ end
 
 
 class Bomb < Weapon
+  traits :animation, :timer
   def setup
     super
     after(5000 + rand(2000)) { explode }
