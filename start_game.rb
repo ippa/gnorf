@@ -33,7 +33,7 @@ class Game < Chingu::Window
     retrofy
     self.factor = 2
     reset_game
-    @gamercv = YAML.load_file(File.join(ROOT, "gamercv.yml"))
+    @gamercv = YAML.load_file(File.join(ROOT, "gamercv.yml")) rescue nil
     @last_level = nil
     
     Sound["hit.wav"]
