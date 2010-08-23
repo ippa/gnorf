@@ -156,7 +156,7 @@ class Horse < Enemy
   end
     
   def switch_mode    
-    if @flag == :attack
+    if @flag == :attack && !grabbed?
       self.velocity_x = -4
       animation.delay = 30
       @flag = :default

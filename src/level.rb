@@ -4,13 +4,18 @@ class Level < GameState
 
   def initialize
     super
-    self.input = { :esc => :exit }
+    self.input = { :esc => :menu, :p => GameStates::Pause }
     
     on_input(:tab) { $window.next_level } unless ENV["OCRA_EXECUTABLE"]
     on_input(:e) { edit }                 unless ENV["OCRA_EXECUTABLE"]
     
     @floor_y = $window.height + 2 - 32*2
     @player = Player.create(:x => 40, :y => @floor_y)
+  end
+  
+  def menu
+    $window.reset_game
+    switch_game_state(MenuState)
   end
   
   def setup    
@@ -59,6 +64,7 @@ class Level < GameState
       king.destroy
       enemy.destroy
       PuffText.create("You killed the KING!", :x => $window.width/2, :y => $window.height/2)      
+      $window.score += 1000
       if self.is_a? Level10
         switch_game_state(EnterMenuState)
       else
@@ -74,7 +80,7 @@ class Level < GameState
     @energy_font.draw("Energy: #{$window.energy}", 10, 10, 10)
     @energy_font.draw("Score: #{$window.score}", 300, 10, 10)
     @energy_font.draw("Throw Speed: #{@player.throw_energy.to_i}", 600, 10, 10)
-    $window.caption = "Gnorf (is breaking an entrence). LD#18 entry by http://ippa.se/gaming - [#{self.class.to_s}/#{@player.x}/#{@player.y}/#{$window.fps}] "
+    #$window.caption = "Gnorf (is breaking an entrence). LD#18 entry by http://ippa.se/gaming - [#{self.class.to_s}/#{@player.x}/#{@player.y}/#{$window.fps}] "
     
   end
   

@@ -1,5 +1,6 @@
 class Effect < GameObject
   trait :velocity
+  attr_reader :animation
 
   def setup
     self.velocity = 1.0-rand*2, 1.0-rand*2
@@ -20,7 +21,13 @@ end
 
 
 class Smokepuff < Effect
-  trait :animation, :delay => 150, :loop => false  
+  # trait :animation, :delay => 150, :loop => false  
+  
+  def setup
+    @animation = Animation.new(:file => "smokepuff_16x16.bmp", :delay => 150, :loop => false)
+    super
+  end
+  
 end
 
 

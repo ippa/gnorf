@@ -52,6 +52,11 @@ class Game < Chingu::Window
     @lives = 3
   end
   
+  def update
+    $window.caption = "Gnorf (is breaking an entrence). LD#18 entry by ippa - http://ippa.se/gaming + http://rubylicio.us ( FPS #{$window.fps} )"
+    super
+  end
+  
   def next_level
     switch_game_state($window.levels.shift)
   end

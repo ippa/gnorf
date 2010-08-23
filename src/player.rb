@@ -142,7 +142,7 @@ class Player < GameObject
     self.factor_x = -self.factor_x.abs  if x < 0
     
     self.x += x
-    self.x = previous_x   if self.x < 0 || self.x > $window.width
+    self.x = previous_x   if self.outside_window? || game_state.game_object_map.from_game_object(self)
     
     self.y += y
     if self.y > game_state.floor_y
