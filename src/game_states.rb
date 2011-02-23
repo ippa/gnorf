@@ -74,13 +74,6 @@ class EnterNameState < GameState
   def initialize
     super
     
-    if position = $window.high_score_list.position_by_score($window.score) < 20
-      #Text.create("You made position nr. #{position.to_s}! Please enter your name!", :x => 10, :y => 10, :size => 30, :align => :center)
-      Text.create("High Score! Please enter your name.", :x => 10, :y => 10, :size => 25, :align => :center)
-    else
-      switch_game_state(MenuState)
-    end
-    
     self.input = {  [:holding_left, :holding_a, :holding_gamepad_left] => :left, 
                     [:holding_right, :holding_d, :holding_gamepad_right] => :right,
                     [:space, :x, :enter, :gamepad_button_1, :return] => :action
@@ -94,6 +87,8 @@ class EnterNameState < GameState
     @letters = %w[ A B C D E F G H I J K L M N O P Q R S T U V W X Y Z _ < GO! ]
     x = @start_x
     
+    Text.create("High Score! Please enter your name.", :x => 10, :y => 10, :size => 25, :align => :center)
+    
     @letters.each do |letter|
       @texts << Text.create(letter, :x => x, :y => @start_y, :rotation_center => :bottom_left)
       x += 30
@@ -102,6 +97,19 @@ class EnterNameState < GameState
     @selected_color = Color::RED
     @cooldown = false
     @signature = Text.create("", :x => $window.width/2, :y => $window.height/2, :size => 80, :align => :center)
+  end
+  
+  def setup
+    begin
+      # TODO, why does position_by_score return nil sometimes?
+      if position = $window.high_score_list.position_by_score($window.score) < 20
+        #Text.create("You made position nr. #{position.to_s}! Please enter your name!", :x => 10, :y => 10, :size => 30, :align => :center)        
+      else
+        after(500) { switch_game_state(MenuState) }
+      end
+    rescue
+      after(500) { switch_game_state(MenuState) }
+    end
   end
   
   def left

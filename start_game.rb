@@ -4,12 +4,11 @@ require 'rubygems'
 require 'yaml'
 
 begin
-  raise LoadError if defined?(Ocra)
+  #raise LoadError# if defined?(Ocra)
   require '../chingu/lib/chingu'
 rescue LoadError
   require 'chingu'
 end
-
 
 require 'mime/types'
 require 'texplay'
@@ -53,7 +52,7 @@ class Game < Chingu::Window
   end
   
   def update
-    $window.caption = "Gnorf (is breaking an entrence). LD#18 entry by ippa - http://ippa.se/gaming + http://rubylicio.us ( FPS #{$window.fps} )"
+    $window.caption = "Gnorf (is breaking an entrence). LD#18 entry by ippa - http://ippa.se/gaming + http://rubylicio.us ( FPS #{$window.fps} ) #{current_game_state.game_objects.size}"
     super
   end
   
@@ -62,7 +61,7 @@ class Game < Chingu::Window
   end
   
   def high_score_list
-    OnlineHighScoreList.load(:game_id => 14, :login => @gamercv["login"], :password => @gamercv["password"], :limit => 10)
+    OnlineHighScoreList.load(:game_id => 14, :login => @gamercv["login"], :password => @gamercv["password"], :limit => 20)
   end
 end
 

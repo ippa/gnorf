@@ -279,64 +279,8 @@
     :factor_x: 2.0
     :factor_y: 2.0
     :color: 4294967295
-- StonewallArch: 
-    :x: 696.0
-    :y: 376.0
-    :angle: 0
-    :zorder: 10
-    :factor_x: 2.0
-    :factor_y: 2.0
-    :color: 4294967295
 - Stonewall: 
-    :x: 728.0
-    :y: 376.0
-    :angle: 0
-    :zorder: 10
-    :factor_x: 2.0
-    :factor_y: 2.0
-    :color: 4294967295
-- Stonewall: 
-    :x: 728.0
-    :y: 344.0
-    :angle: 0
-    :zorder: 10
-    :factor_x: 2.0
-    :factor_y: 2.0
-    :color: 4294967295
-- Stonewall: 
-    :x: 728.0
-    :y: 280.0
-    :angle: 0
-    :zorder: 10
-    :factor_x: 2.0
-    :factor_y: 2.0
-    :color: 4294967295
-- Stonewall: 
-    :x: 728.0
-    :y: 184.0
-    :angle: 0
-    :zorder: 10
-    :factor_x: 2.0
-    :factor_y: 2.0
-    :color: 4294967295
-- StonewallWindow: 
-    :x: 728.0
-    :y: 216.0
-    :angle: 0
-    :zorder: 10
-    :factor_x: 2.0
-    :factor_y: 2.0
-    :color: 4294967295
-- Tower: 
-    :x: 728.0
-    :y: 136.0
-    :angle: 0
-    :zorder: 10
-    :factor_x: 2.0
-    :factor_y: 2.0
-    :color: 4294967295
-- StonewallArch: 
-    :x: 760.0
+    :x: 730.8875
     :y: 376.0
     :angle: 0
     :zorder: 10
@@ -551,30 +495,6 @@
     :factor_x: 2.0
     :factor_y: 2.0
     :color: 4294967295
-- StonewallGun: 
-    :x: 728.0
-    :y: 248.0
-    :angle: 0
-    :zorder: 10
-    :factor_x: 2.0
-    :factor_y: 2.0
-    :color: 4294967295
-- StonewallGun: 
-    :x: 728.0
-    :y: 312.0
-    :angle: 0
-    :zorder: 10
-    :factor_x: 2.0
-    :factor_y: 2.0
-    :color: 4294967295
-- StonewallGun: 
-    :x: 696.0
-    :y: 440.0
-    :angle: 0
-    :zorder: 10
-    :factor_x: 2.0
-    :factor_y: 2.0
-    :color: 4294967295
 - Stonewall: 
     :x: 920.0
     :y: 184.0
@@ -601,7 +521,7 @@
     :color: 4294967295
 - King: 
     :x: 952.0
-    :y: 431.6
+    :y: 424.0
     :angle: 0
     :zorder: 2
     :factor_x: 2
@@ -617,22 +537,14 @@
     :color: 4294967295
 - Stonewall: 
     :x: 696.0
-    :y: 408.0
-    :angle: 0
-    :zorder: 10
-    :factor_x: 2.0
-    :factor_y: 2.0
-    :color: 4294967295
-- StonewallArch: 
-    :x: 664.0
-    :y: 472.0
+    :y: 440.0
     :angle: 0
     :zorder: 10
     :factor_x: 2.0
     :factor_y: 2.0
     :color: 4294967295
 - StonewallMortar: 
-    :x: 664.0
+    :x: 664.7125
     :y: 504.0
     :angle: 0
     :zorder: 10
@@ -652,54 +564,102 @@
     :y: 608.0
     :angle: 0
     :zorder: 100
-    :factor_x: 2
-    :factor_y: 2
+    :factor_x: 2.0
+    :factor_y: 2.0
     :color: 4294967295
 - Bone: 
     :x: 784.0
     :y: 616.0
     :angle: 0
     :zorder: 100
-    :factor_x: 2
-    :factor_y: 2
+    :factor_x: 2.0
+    :factor_y: 2.0
     :color: 4294967295
 - Skull: 
     :x: 400.0
     :y: 608.0
     :angle: 0
     :zorder: 100
-    :factor_x: 2
-    :factor_y: 2
+    :factor_x: 2.0
+    :factor_y: 2.0
     :color: 4294967295
 - Bone: 
     :x: 264.0
     :y: 608.0
     :angle: 0
     :zorder: 100
-    :factor_x: 2
-    :factor_y: 2
+    :factor_x: 2.0
+    :factor_y: 2.0
     :color: 4294967295
 - Skull: 
     :x: 64.0
     :y: 616.0
     :angle: 0
     :zorder: 100
-    :factor_x: 2
-    :factor_y: 2
+    :factor_x: 2.0
+    :factor_y: 2.0
     :color: 4294967295
 - Bone: 
     :x: 88.0
     :y: 600.0
     :angle: 0
     :zorder: 100
-    :factor_x: 2
-    :factor_y: 2
+    :factor_x: 2.0
+    :factor_y: 2.0
     :color: 4294967295
 - Skull: 
     :x: 384.0
     :y: 624.0
     :angle: 0
     :zorder: 100
+    :factor_x: 2.0
+    :factor_y: 2.0
+    :color: 4294967295
+- StonewallArch: 
+    :x: 680.0
+    :y: 368.0
+    :angle: 0
+    :zorder: 10
     :factor_x: 2
     :factor_y: 2
+    :color: 4294967295
+- StonewallArch: 
+    :x: 720.0
+    :y: 336.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- StonewallArch: 
+    :x: 728.0
+    :y: 288.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- StonewallArch: 
+    :x: 728.0
+    :y: 248.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- StonewallArch: 
+    :x: 728.0
+    :y: 192.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2
+    :factor_y: 2
+    :color: 4294967295
+- Tower: 
+    :x: 776.0
+    :y: 224.0
+    :angle: 0
+    :zorder: 10
+    :factor_x: 2.0
+    :factor_y: 2.0
     :color: 4294967295

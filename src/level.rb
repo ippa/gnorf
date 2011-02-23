@@ -9,7 +9,7 @@ class Level < GameState
     on_input(:tab) { $window.next_level } unless ENV["OCRA_EXECUTABLE"]
     on_input(:e) { edit }                 unless ENV["OCRA_EXECUTABLE"]
     
-    @floor_y = $window.height + 2 - 32*2
+    @floor_y = $window.height - 32*2 - 1
     @player = Player.create(:x => 40, :y => @floor_y)
   end
   
@@ -37,6 +37,11 @@ class Level < GameState
   
   def draw
     fill_gradient(:from => Color::BLUE, :to => Color::CYAN)
+    
+    @energy_font.draw("Energy: #{$window.energy}", 10, 10, 10)
+    @energy_font.draw("Score: #{$window.score}", 300, 10, 10)
+    @energy_font.draw("Throw Speed: #{@player.throw_energy.to_i}", 600, 10, 10)
+    
     super
   end
   
@@ -48,17 +53,14 @@ class Level < GameState
       horse.destroy
     end
     
-    #@player.each_collision(Horse) do |player, horse|
-    #  player.hit_by(horse)
-    #  horse.destroy
-    #end
-
     Weapon.each_collision(@player) do |weapon, player|
       player.hit_by(weapon)
       weapon.explode
     end
     
-    King.each_collision(Enemy.thrown) do |king, enemy|
+    thrown_enemies = Knight.thrown + Horse.thrown + Balloon.thrown
+    
+    King.each_collision(thrown_enemies) do |king, enemy|
       Sound["win.wav"].play(0.2)
       king.hit_by(enemy)
       king.destroy
@@ -71,17 +73,13 @@ class Level < GameState
         after(3000) { $window.next_level }
       end
     end
-      
-    Block.each_collision(Enemy.thrown) do |block, enemy|
+
+    game_objects.of_class(Block).each_bounding_box_collision(thrown_enemies) do |block, enemy|
       enemy.destroy
       block.hit_by(enemy)
     end
     
-    @energy_font.draw("Energy: #{$window.energy}", 10, 10, 10)
-    @energy_font.draw("Score: #{$window.score}", 300, 10, 10)
-    @energy_font.draw("Throw Speed: #{@player.throw_energy.to_i}", 600, 10, 10)
     #$window.caption = "Gnorf (is breaking an entrence). LD#18 entry by http://ippa.se/gaming - [#{self.class.to_s}/#{@player.x}/#{@player.y}/#{$window.fps}] "
-    
   end
   
   def fire_gun

@@ -62,13 +62,12 @@ end
 
 
 class Bomb < Weapon
-  #trait :animation
-  trait :timer
+  #trait :timer
   def setup
     @animation = Animation.new(:file => "bomb_8x8.bmp")
     
     super
-    after(5000 + rand(2000)) { explode }
+    #after(5000 + rand(2000)) { explode }
     @energy = 30
   end
   

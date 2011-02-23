@@ -44,7 +44,7 @@ class PuffText < Text
   def puff_effect
     self.fade_rate = -1
     self.scale_rate = 0.01
-    self.velocity_y = -2
-    after(2500) { destroy }
+    self.velocity_y = -1
+    after(4000) { destroy }
   end
 end

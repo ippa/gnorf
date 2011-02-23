@@ -45,10 +45,14 @@ class Player < GameObject
   end
     
   def die    
-    PuffText.create("You have been slayed by the kings brave men!")
+    PuffText.create("Slayed by the kings brave men!")
     self.collidable = false
     game_state.game_objects.pause
-    game_state.after(3000) { $window.switch_game_state(EnterNameState) }
+    
+    state = MenuState
+    state = EnterNameState  if $window.high_score_list.position_by_score($window.score) < 20 rescue nil
+
+    game_state.after(4000) { $window.switch_game_state(state) }
   end
   
   def action
@@ -67,15 +71,20 @@ class Player < GameObject
 
   def grab
     @action = :grab
+    
     if @status == :crouch
       @image = @animation[:crouch].last
       x = (self.factor_x > 0) ? bb.right+15 : bb.left-15
-      Enemy.each_at(x, bb.bottom - 10) { |enemy| grabbed(enemy) }
+      [Knight, Horse, Balloon].each do |klass|
+        klass.each_at(x, bb.bottom - 10) { |enemy| grabbed(enemy) }
+      end
       after(100, :name => :ungrab) { @image = @animation[:crouch].first }
     else
       @image = @animation[:grab].last
       x = (self.factor_x > 0) ? bb.right+15 : bb.left-15
-      Enemy.each_at(x, bb.center_y) { |enemy| grabbed(enemy) }
+      [Knight, Horse, Balloon].each do |klass|
+        klass.each_at(x, bb.center_y) { |enemy| grabbed(enemy) }
+      end
       after(100, :name => :ungrab) { @image = @animation[:walk].first }
     end
   end
@@ -146,6 +155,7 @@ class Player < GameObject
     self.x = previous_x   if self.outside_window? || game_state.game_object_map.from_game_object(self)
     
     self.y += y
+    #self.y = previous_y   if block = self.game_state.game_object_map.from_game_object(self)
     if self.y > game_state.floor_y
       land
       self.y = game_state.floor_y   

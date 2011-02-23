@@ -82,7 +82,7 @@ class Enemy < GameObject
       self.velocity_x = self.velocity_x / 2
       self.velocity_y = -self.velocity_y / 2
       @angle_velocity = 0
-      5.times { game_state.floor.image.set_pixel(self.x/2 + rand(10), rand(5), :color => Color::RED) }
+      # 5.times { game_state.floor.image.set_pixel(self.x/2 + rand(10), rand(5), :color => Color::RED) }
       Sound["bounce.wav"].play(0.3)
     else
       self.angle = 0
